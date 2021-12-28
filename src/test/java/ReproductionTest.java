@@ -48,20 +48,20 @@ public class ReproductionTest {
         WorldMap map = new WorldMap(10, 10, 10, 0.5, 10, 10, 10);
         SimulationEngine engine = new SimulationEngine(map, 200, false);
         Vector2d position = new Vector2d(1, 1);
-        if (map.animalLists.containsKey(position)) {
-            map.animalLists.remove(position);
+        if (map.getAnimalLists().containsKey(position)) {
+            map.getAnimalLists().remove(position);
         }
         Animal parentOne = new Animal(map, position);
         Animal parentTwo = new Animal(map, position);
         Animal parentCandidateOne = new Animal(map, position);
         Animal parentCandidateTwo = new Animal(map, position);
         Animal parentCandidateThree = new Animal(map, position);
-        map.animalLists.put(position, new ArrayList<>());
-        map.animalLists.get(position).add(parentCandidateThree);
-        map.animalLists.get(position).add(parentCandidateOne);
-        map.animalLists.get(position).add(parentTwo);
-        map.animalLists.get(position).add(parentCandidateTwo);
-        map.animalLists.get(position).add(parentOne);
+        map.getAnimalLists().put(position, new ArrayList<>());
+        map.getAnimalLists().get(position).add(parentCandidateThree);
+        map.getAnimalLists().get(position).add(parentCandidateOne);
+        map.getAnimalLists().get(position).add(parentTwo);
+        map.getAnimalLists().get(position).add(parentCandidateTwo);
+        map.getAnimalLists().get(position).add(parentOne);
 
         int[] genesOneArray = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7};
         int[] genesTwoArray = {4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7};
@@ -76,7 +76,7 @@ public class ReproductionTest {
         parentOne.setEnergy(50);
         parentTwo.setEnergy(150);
         map.reproduceAnimals(engine);
-        Animal baby = map.animalLists.get(position).get(5);
+        Animal baby = map.getAnimalLists().get(position).get(5);
 
         int[] babyScenarioOne = {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7};
         int[] babyScenarioTwo = {4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7};

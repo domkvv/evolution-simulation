@@ -10,16 +10,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
-public class ElementImageBox extends VBox{
+public class ElementImageBox extends VBox {
 
     public ElementImageBox(IMapElement element, HashMap<String, Image> pictures) throws FileNotFoundException {
         super();
         String imagePath = element.getImagePath();
         ImageView imageView;
-        if(pictures.containsKey(imagePath)){
+        if (pictures.containsKey(imagePath)) {
             imageView = new ImageView(pictures.get(imagePath));
-        }
-        else{
+        } else {
             Image image = new Image(new FileInputStream(imagePath));
             imageView = new ImageView(image);
             pictures.put(imagePath, image);

@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class App extends Application implements ISimulationEngineObserver {
+
     private RolledMap rolledMap;
     private LimitedMap limitedMap;
 
@@ -57,16 +58,16 @@ public class App extends Application implements ISimulationEngineObserver {
                 ex.printStackTrace();
             }
             try {
-                rolledMapBox = new MapBox(rolledMap, engine1);
+                this.rolledMapBox = new MapBox(this.rolledMap, this.engine1);
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
             try {
-                limitedMapBox = new MapBox(limitedMap, engine2);
+                this.limitedMapBox = new MapBox(this.limitedMap, this.engine2);
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
-            HBox maps = new HBox(rolledMapBox, limitedMapBox);
+            HBox maps = new HBox(this.rolledMapBox, this.limitedMapBox);
             maps.setSpacing(20);
             maps.setAlignment(Pos.CENTER);
 
@@ -86,8 +87,8 @@ public class App extends Application implements ISimulationEngineObserver {
     public void mapsChanged() {
         Platform.runLater(() -> {
             try {
-                rolledMapBox.updateMap(this.rolledMap);
-                limitedMapBox.updateMap(this.limitedMap);
+                this.rolledMapBox.updateMap(this.rolledMap);
+                this.limitedMapBox.updateMap(this.limitedMap);
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }

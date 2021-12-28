@@ -28,7 +28,7 @@ public class SimulationEngine implements Runnable {
     }
 
     public void toggleSimulation() {
-        if (paused) {
+        if (this.paused) {
             this.resume();
         } else {
             this.pause();
@@ -37,20 +37,20 @@ public class SimulationEngine implements Runnable {
 
     @Override
     public void run() {
-        while (running) {
-            synchronized (pauseLock) {
-                if (!running) {
+        while (this.running) {
+            synchronized (this.pauseLock) {
+                if (!this.running) {
                     break;
                 }
-                if (paused) {
+                if (this.paused) {
                     try {
-                        synchronized (pauseLock) {
-                            pauseLock.wait();
+                        synchronized (this.pauseLock) {
+                            this.pauseLock.wait();
                         }
                     } catch (InterruptedException ex) {
                         break;
                     }
-                    if (!running) {
+                    if (!this.running) {
                         break;
                     }
                 }
@@ -69,38 +69,38 @@ public class SimulationEngine implements Runnable {
     }
 
     public void resume() {
-        synchronized (pauseLock) {
-            paused = false;
-            pauseLock.notifyAll();
+        synchronized (this.pauseLock) {
+            this.paused = false;
+            this.pauseLock.notifyAll();
         }
     }
 
     public void pause() {
-        paused = true;
+        this.paused = true;
     }
 
     public void stop() {
-        running = false;
-        resume();
+        this.running = false;
+        this.resume();
     }
 
     private void oneDay() throws IOException {
         this.dayNumber += 1;
-        map.removeDeadAnimals(this);
-        map.moveAnimals();
-        map.feedAnimals();
-        map.reproduceAnimals(this);
-        map.placePlants();
+        this.map.removeDeadAnimals(this);
+        this.map.moveAnimals();
+        this.map.feedAnimals();
+        this.map.reproduceAnimals(this);
+        this.map.placePlants();
 
-        if (isMagic && countMagic < 3 && map.animals.size() == 5) {
-            map.doMagic();
+        if (this.isMagic && this.countMagic < 3 && this.map.getAnimals().size() == 5) {
+            this.map.doMagic();
             this.magicStatement = true;
-            countMagic += 1;
+            this.countMagic += 1;
         } else {
             this.magicStatement = false;
         }
         mapsChanged();
-        statistics.updateStatistics();
+        this.statistics.updateStatistics();
     }
 
     public void addObserver(ISimulationEngineObserver observer) {
@@ -108,25 +108,29 @@ public class SimulationEngine implements Runnable {
     }
 
     public void mapsChanged() {
-        for (ISimulationEngineObserver observer : observers) {
+        for (ISimulationEngineObserver observer : this.observers) {
             observer.mapsChanged();
         }
-    }
-
-    public int getDayNumber() {
-        return dayNumber;
-    }
-
-    public WorldMap getMap() {
-        return map;
     }
 
     public void exportStatistics() throws IOException {
         this.statistics.exportToCSV();
     }
 
+    public int getDayNumber() {
+        return this.dayNumber;
+    }
+
+    public WorldMap getMap() {
+        return this.map;
+    }
+
     public boolean isMagicStatement() {
-        return magicStatement;
+        return this.magicStatement;
+    }
+
+    public boolean isPaused() {
+        return this.paused;
     }
 
 }

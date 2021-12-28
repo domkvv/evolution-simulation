@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Statistics {
+
     private final SimulationEngine engine;
     private final StringBuffer fileData = new StringBuffer();
     private int SumAnimals = 0;
@@ -17,35 +18,46 @@ public class Statistics {
     public Statistics(SimulationEngine engine) throws IOException {
         this.engine = engine;
         String header = "day,number of animals,number of plants,average energy,average lifespan,average children";
-        fileData.append(header).append("\n");
+        this.fileData.append(header).append("\n");
         updateStatistics();
     }
 
     public void updateStatistics() throws IOException {
-        SumAnimals += engine.getMap().getAnimalsNumber();
-        SumPlants += engine.getMap().getPlantsNumber();
-        SumEnergy += engine.getMap().getAverageEnergy();
-        SumLifespan += engine.getMap().getAverageLifespan();
-        SumChildren += engine.getMap().getAverageChildren();
+        this.SumAnimals += this.engine.getMap().getAnimalsNumber();
+        this.SumPlants += this.engine.getMap().getPlantsNumber();
+        this.SumEnergy += this.engine.getMap().getAverageEnergy();
+        this.SumLifespan += this.engine.getMap().getAverageLifespan();
+        this.SumChildren += this.engine.getMap().getAverageChildren();
 
-        fileData.append(String.valueOf(engine.getDayNumber())).append(",")
-                .append(String.valueOf(engine.getMap().getAnimalsNumber())).append(",")
-                .append(String.valueOf(engine.getMap().getPlantsNumber())).append(",")
-                .append(String.valueOf(engine.getMap().getAverageEnergy())).append(",")
-                .append(String.valueOf(engine.getMap().getAverageLifespan()))
-                .append(",").append(String.valueOf(engine.getMap().getAverageChildren())).append("\n")
+        this.fileData.append(this.engine.getDayNumber()).append(",")
+                .append(this.engine.getMap().getAnimalsNumber()).append(",")
+                .append(this.engine.getMap().getPlantsNumber()).append(",")
+                .append(this.engine.getMap().getAverageEnergy()).append(",")
+                .append(this.engine.getMap().getAverageLifespan()).append(",")
+                .append(this.engine.getMap().getAverageChildren()).append("\n")
         ;
     }
 
     public void exportToCSV() throws IOException {
-        double days = engine.getDayNumber() + 1;
-        String filename = engine.getMap().toString() + "_after_day_" + engine.getDayNumber() + "_statistics.csv";
+        double days = this.engine.getDayNumber() + 1;
+        String filename = this.engine.getMap().toString() + "_after_day_" + this.engine.getDayNumber() + "_statistics.csv";
         FileWriter fileWriter = new FileWriter(filename);
-        fileWriter.append(fileData);
+        fileWriter.append(this.fileData);
         if (days != 0) {
-            fileWriter.append("average:,").append(String.valueOf(SumAnimals / days)).append(",").append(String.valueOf(SumPlants / days)).append(",").append(String.valueOf(SumEnergy / days)).append(",").append(String.valueOf(SumLifespan / days)).append(",").append(String.valueOf(SumChildren / days)).append("\n");
+            fileWriter.append("average:").append(",")
+                    .append(String.valueOf(this.SumAnimals / days)).append(",")
+                    .append(String.valueOf(this.SumPlants / days)).append(",")
+                    .append(String.valueOf(this.SumEnergy / days)).append(",")
+                    .append(String.valueOf(this.SumLifespan / days)).append(",")
+                    .append(String.valueOf(this.SumChildren / days)).append("\n");
         } else {
-            fileWriter.append("average:,").append(String.valueOf(SumAnimals)).append(",").append(String.valueOf(SumPlants)).append(",").append(String.valueOf(SumEnergy)).append(",").append(String.valueOf(SumLifespan)).append(",").append(String.valueOf(SumChildren)).append("\n");
+            fileWriter.append("average:").append(",")
+                    .append(String.valueOf(this.SumAnimals))
+                    .append(",").append(String.valueOf(this.SumPlants))
+                    .append(",").append(String.valueOf(this.SumEnergy))
+                    .append(",").append(String.valueOf(this.SumLifespan))
+                    .append(",").append(String.valueOf(this.SumChildren))
+                    .append("\n");
         }
         fileWriter.close();
     }

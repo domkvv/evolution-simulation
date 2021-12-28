@@ -24,7 +24,7 @@ public interface IWorldMap {
 
     boolean isJungleFull();
 
-    boolean isMapFull();
+    boolean isSteppeFull();
 
     int getAnimalsNumber();
 

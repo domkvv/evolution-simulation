@@ -9,12 +9,12 @@ public class SingleQueryBox extends HBox {
     public TextField textField;
     public HBox hbox;
 
-    public SingleQueryBox(String field, String defaultValue){
+    public SingleQueryBox(String field, String defaultValue) {
         this.textField = new TextField(defaultValue);
         Text text = new Text(field);
-        this.hbox = new HBox(text, textField);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(10);
+        this.hbox = new HBox(text, this.textField);
+        this.hbox.setAlignment(Pos.CENTER);
+        this.hbox.setSpacing(10);
     }
 
 }

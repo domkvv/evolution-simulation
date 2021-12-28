@@ -8,38 +8,39 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 
 public class GenotypesChart extends VBox {
+
     private PieChart chart;
     private SimulationEngine engine;
 
-    public GenotypesChart(SimulationEngine engine){
+    public GenotypesChart(SimulationEngine engine) {
         super();
         this.engine = engine;
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for(String genotype : engine.getMap().genotypes.keySet()){
-            pieChartData.add(new PieChart.Data(genotype, engine.getMap().genotypes.get(genotype)));
+        for (String genotype : this.engine.getMap().getGenotypes().keySet()) {
+            pieChartData.add(new PieChart.Data(genotype, this.engine.getMap().getGenotypes().get(genotype)));
         }
-        chart = new PieChart(pieChartData);
-        chart.setAnimated(false);
-        chart.setLegendVisible(true);
-        chart.setLabelsVisible(true);
-        chart.setLegendSide(Side.BOTTOM);
-        chart.setTitle("Genotypes chart");
-        this.getChildren().add(chart);
+        this.chart = new PieChart(pieChartData);
+        this.chart.setAnimated(false);
+        this.chart.setLegendVisible(true);
+        this.chart.setLabelsVisible(true);
+        this.chart.setLegendSide(Side.BOTTOM);
+        this.chart.setTitle("Genotypes chart");
+        this.getChildren().add(this.chart);
 
     }
 
-    public void updateChart(){
-        chart.getData().clear();
+    public void updateChart() {
+        this.chart.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for(String genotype : engine.getMap().genotypes.keySet()){
-            pieChartData.add(new PieChart.Data(genotype, engine.getMap().genotypes.get(genotype)));
+        for (String genotype : this.engine.getMap().getGenotypes().keySet()) {
+            pieChartData.add(new PieChart.Data(genotype, this.engine.getMap().getGenotypes().get(genotype)));
         }
-        chart.setData(pieChartData);
-        chart.setAnimated(false);
-        chart.setLabelsVisible(true);
-        chart.setLegendVisible(true);
-        chart.setLegendSide(Side.BOTTOM);
-        chart.setTitle("Genotypes chart");
+        this.chart.setData(pieChartData);
+        this.chart.setAnimated(false);
+        this.chart.setLabelsVisible(true);
+        this.chart.setLegendVisible(true);
+        this.chart.setLegendSide(Side.BOTTOM);
+        this.chart.setTitle("Genotypes chart");
     }
 
 }

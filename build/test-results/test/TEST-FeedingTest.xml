@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FeedingTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-12-28T12:24:40" hostname="DESKTOP-2KTIDAC" time="0.019">
-  <properties/>
-  <testcase name="FeedingTest1()" classname="FeedingTest" time="0.017"/>
-  <testcase name="FeedingTest2()" classname="FeedingTest" time="0.001"/>
-  <system-out><![CDATA[43.333333333333336
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -19,18 +19,18 @@ public class FeedingTest {
         eatingAnimal3.setEnergy(40);
         Animal notEatingAnimal1 = new Animal(map, position);
         Animal notEatingAnimal2 = new Animal(map, position);
-        if (!map.plantLists.containsKey(position)) {
-            map.plantLists.put(position, new Plant(position));
+        if (!map.getPlantLists().containsKey(position)) {
+            map.getPlantLists().put(position, new Plant(position));
         }
-        if (map.animalLists.containsKey(position)) {
-            map.animalLists.remove(position);
+        if (map.getAnimalLists().containsKey(position)) {
+            map.getAnimalLists().remove(position);
         }
-        map.animalLists.put(position, new ArrayList<>());
-        map.animalLists.get(position).add(eatingAnimal1);
-        map.animalLists.get(position).add(notEatingAnimal1);
-        map.animalLists.get(position).add(notEatingAnimal2);
-        map.animalLists.get(position).add(eatingAnimal2);
-        map.animalLists.get(position).add(eatingAnimal3);
+        map.getAnimalLists().put(position, new ArrayList<>());
+        map.getAnimalLists().get(position).add(eatingAnimal1);
+        map.getAnimalLists().get(position).add(notEatingAnimal1);
+        map.getAnimalLists().get(position).add(notEatingAnimal2);
+        map.getAnimalLists().get(position).add(eatingAnimal2);
+        map.getAnimalLists().get(position).add(eatingAnimal3);
 
         map.feedAnimals();
         double higherEnergy = 43 + (1 / (double) 3);
@@ -44,14 +44,14 @@ public class FeedingTest {
         Vector2d position = new Vector2d(2, 2);
         Animal eatingAnimal = new Animal(map, position);
         eatingAnimal.setEnergy(20);
-        if (!map.plantLists.containsKey(position)) {
-            map.plantLists.put(position, new Plant(position));
+        if (!map.getPlantLists().containsKey(position)) {
+            map.getPlantLists().put(position, new Plant(position));
         }
-        if (map.animalLists.containsKey(position)) {
-            map.animalLists.remove(position);
+        if (map.getAnimalLists().containsKey(position)) {
+            map.getAnimalLists().remove(position);
         }
-        map.animalLists.put(position, new ArrayList<>());
-        map.animalLists.get(position).add(eatingAnimal);
+        map.getAnimalLists().put(position, new ArrayList<>());
+        map.getAnimalLists().get(position).add(eatingAnimal);
         map.feedAnimals();
         assertEquals(35, eatingAnimal.getEnergy());
 

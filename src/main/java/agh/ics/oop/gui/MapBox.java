@@ -16,31 +16,31 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class MapBox extends GridPane {
-    public GridPane grid = new GridPane();
+
     public Button toggleButton = new Button("play/pause");
+    private final GridPane grid = new GridPane();
     private final SimulationEngine engine;
     private final ChartBox chart;
     private final Button exportButton = new Button("export statistics to .csv");
     private final VBox buttons = new VBox(grid, toggleButton, exportButton);
-    private HashMap<String, Image> pictures = new HashMap<>();
+    private final HashMap<String, Image> pictures = new HashMap<>();
 
     public MapBox(WorldMap map, SimulationEngine engine) throws FileNotFoundException {
         super();
         this.engine = engine;
-
         makeMap(map);
         this.chart = new ChartBox(engine);
         concatenateEverything();
     }
 
     public void makeMap(WorldMap map) throws FileNotFoundException {
-        grid.setGridLinesVisible(true);
+        this.grid.setGridLinesVisible(true);
 
         for (int i = 0; i < map.getWidth(); i++) {
-            grid.getColumnConstraints().add(new ColumnConstraints(45));
+            this.grid.getColumnConstraints().add(new ColumnConstraints(45));
         }
         for (int i = 0; i < map.getHeight(); i++) {
-            grid.getRowConstraints().add(new RowConstraints(45));
+            this.grid.getRowConstraints().add(new RowConstraints(45));
         }
 
         for (int i = 0; i < map.getWidth(); i++) {
@@ -55,62 +55,62 @@ public class MapBox extends GridPane {
                 StackPane pane;
                 Object object = map.objectAt(new Vector2d(i, j));
                 if (object != null) {
-                    ElementImageBox vbox = new ElementImageBox((IMapElement) object, pictures);
+                    ElementImageBox vbox = new ElementImageBox((IMapElement) object, this.pictures);
                     pane = new StackPane(backPane, vbox);
                 } else {
                     pane = new StackPane(backPane);
                 }
                 pane.setAlignment(Pos.CENTER);
-                grid.add(pane, i, j);
+                this.grid.add(pane, i, j);
             }
         }
-
     }
 
     public void updateMap(WorldMap map) throws FileNotFoundException {
-        grid.setGridLinesVisible(false);
-        grid.getChildren().clear();
-        grid.getColumnConstraints().clear();
-        grid.getRowConstraints().clear();
+        this.grid.setGridLinesVisible(false);
+        this.grid.getChildren().clear();
+        this.grid.getColumnConstraints().clear();
+        this.grid.getRowConstraints().clear();
         makeMap(map);
-        chart.updateCharts();
+        this.chart.updateCharts();
         concatenateEverything();
     }
 
     public void concatenateEverything() {
         VBox newButtons;
-        if (engine.isMagicStatement()) {
+        if (this.engine.isMagicStatement()) {
             Text showMagicStatement = new Text("magic is happening");
-            buttons.getChildren().clear();
-            newButtons = new VBox(grid, toggleButton, exportButton, showMagicStatement);
+            this.buttons.getChildren().clear();
+            newButtons = new VBox(this.grid, this.toggleButton, this.exportButton, showMagicStatement);
         } else {
-            buttons.getChildren().clear();
-            newButtons = new VBox(grid, toggleButton, exportButton);
+            this.buttons.getChildren().clear();
+            newButtons = new VBox(this.grid, this.toggleButton, this.exportButton);
         }
         newButtons.setAlignment(Pos.CENTER);
         newButtons.setSpacing(15);
-        buttons.getChildren().add(newButtons);
-        buttons.setAlignment(Pos.CENTER);
-        HBox hbox = new HBox(chart, buttons);
+        this.buttons.getChildren().add(newButtons);
+        this.buttons.setAlignment(Pos.CENTER);
+        HBox hbox = new HBox(this.chart, this.buttons);
         hbox.setSpacing(15);
         hbox.setAlignment(Pos.CENTER);
         VBox mapBox = new VBox(hbox);
         mapBox.setAlignment(Pos.CENTER);
         mapBox.setSpacing(20);
         this.toggleButton.setOnAction(e -> {
-            engine.toggleSimulation();
+            this.engine.toggleSimulation();
         });
 
         this.exportButton.setOnAction(e -> {
-            try {
-                engine.exportStatistics();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (this.engine.isPaused()) {
+                try {
+                    this.engine.exportStatistics();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(mapBox);
-
     }
 
 }

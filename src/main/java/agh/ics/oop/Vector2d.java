@@ -11,10 +11,6 @@ public class Vector2d {
         this.y = y;
     }
 
-    public String toString() {
-        return '(' + String.valueOf(this.x) + ',' + String.valueOf(this.y) + ')';
-    }
-
     public Vector2d add(Vector2d other) {
         return new Vector2d(this.x + other.x, this.y + other.y);
     }
@@ -28,6 +24,7 @@ public class Vector2d {
         return Objects.hash(x, y);
     }
 
+    @Override
     public boolean equals(Object other) {
         if (this == other)
             return true;
@@ -38,6 +35,11 @@ public class Vector2d {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return '(' + String.valueOf(this.x) + ',' + String.valueOf(this.y) + ')';
     }
 
 }
