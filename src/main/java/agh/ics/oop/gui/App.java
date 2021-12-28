@@ -69,7 +69,8 @@ public class App extends Application implements ISimulationEngineObserver {
             HBox maps = new HBox(rolledMapBox, limitedMapBox);
             maps.setSpacing(20);
             maps.setAlignment(Pos.CENTER);
-            primaryStage.setScene(new Scene(maps, 1600, 800));
+
+            primaryStage.setScene(new Scene(maps, 1920, 1200));
             primaryStage.show();
         });
 

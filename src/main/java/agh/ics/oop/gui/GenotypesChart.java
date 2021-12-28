@@ -22,7 +22,8 @@ public class GenotypesChart extends VBox {
         chart.setAnimated(false);
         chart.setLegendVisible(true);
         chart.setLabelsVisible(true);
-        chart.setLegendSide(Side.RIGHT);
+        chart.setLegendSide(Side.BOTTOM);
+        chart.setTitle("Genotypes chart");
         this.getChildren().add(chart);
 
     }
@@ -37,7 +38,8 @@ public class GenotypesChart extends VBox {
         chart.setAnimated(false);
         chart.setLabelsVisible(true);
         chart.setLegendVisible(true);
-        chart.setLegendSide(Side.RIGHT);
+        chart.setLegendSide(Side.BOTTOM);
+        chart.setTitle("Genotypes chart");
     }
 
 }

@@ -1,9 +1,5 @@
 package agh.ics.oop;
 
-import javafx.scene.image.Image;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
@@ -88,7 +84,7 @@ public class Animal implements IMapElement{
     }
 
     @Override
-    public Image setOrientationImage() throws FileNotFoundException {
+    public String getImagePath() {
         String imageFolder = new String();
         if(this.energy <= 0) imageFolder = "0";
         else if(this.energy <= 25) imageFolder = "0_25";
@@ -107,10 +103,7 @@ public class Animal implements IMapElement{
             case 6 -> imageFile = "left";
             case 7 -> imageFile = "leftup";
         }
-
-        String inputStream = "src/main/resources/" + imageFolder + "/" + imageFile + ".png";
-
-        return new Image(new FileInputStream(inputStream));
+        return "src/main/resources/" + imageFolder + "/" + imageFile + ".png";
     }
 
     @Override
@@ -142,8 +135,6 @@ public class Animal implements IMapElement{
         this.energy = energy;
     }
 
-    public String toString() {return "pos: " + getPosition().toString() + " orientation: " + getOrientation() + " energy: "  + getEnergy() + " born: " + bornDate +"\n";}
-
     public void setDeathDate(int deathDate) {
         this.deathDate = deathDate;
     }
@@ -163,4 +154,5 @@ public class Animal implements IMapElement{
     public ArrayList<Animal> getOffsprings() {
         return offsprings;
     }
+
 }

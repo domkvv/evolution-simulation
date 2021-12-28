@@ -4,15 +4,16 @@ import agh.ics.oop.IMapElement;
 import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.Vector2d;
 import agh.ics.oop.WorldMap;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MapBox extends GridPane {
     public GridPane grid = new GridPane();
@@ -21,6 +22,7 @@ public class MapBox extends GridPane {
     private final ChartBox chart;
     private final Button exportButton = new Button("export statistics to .csv");
     private final VBox buttons = new VBox(grid, toggleButton, exportButton);
+    private HashMap<String, Image> pictures = new HashMap<>();
 
     public MapBox(WorldMap map, SimulationEngine engine) throws FileNotFoundException {
         super();
@@ -33,6 +35,7 @@ public class MapBox extends GridPane {
 
     public void makeMap(WorldMap map) throws FileNotFoundException {
         grid.setGridLinesVisible(true);
+
         for (int i = 0; i < map.getWidth(); i++) {
             grid.getColumnConstraints().add(new ColumnConstraints(45));
         }
@@ -49,18 +52,16 @@ public class MapBox extends GridPane {
                     backPane.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
                 }
 
+                StackPane pane;
                 Object object = map.objectAt(new Vector2d(i, j));
                 if (object != null) {
-                    VBox vbox = new ElementImageBox((IMapElement) object).vbox;
-                    vbox.setAlignment(Pos.CENTER);
-                    grid.add(vbox, i, j);
-                    grid.setHalignment(vbox, HPos.CENTER);
-                    StackPane pane = new StackPane(backPane, vbox);
-                    grid.add(pane, i, j);
+                    ElementImageBox vbox = new ElementImageBox((IMapElement) object, pictures);
+                    pane = new StackPane(backPane, vbox);
                 } else {
-                    StackPane pane = new StackPane(backPane);
-                    grid.add(pane, i, j);
+                    pane = new StackPane(backPane);
                 }
+                pane.setAlignment(Pos.CENTER);
+                grid.add(pane, i, j);
             }
         }
 
