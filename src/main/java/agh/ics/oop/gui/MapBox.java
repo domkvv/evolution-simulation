@@ -1,9 +1,6 @@
 package agh.ics.oop.gui;
 
-import agh.ics.oop.IMapElement;
-import agh.ics.oop.SimulationEngine;
-import agh.ics.oop.Vector2d;
-import agh.ics.oop.WorldMap;
+import agh.ics.oop.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -15,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class MapBox extends GridPane {
+public class MapBox extends HBox {
 
     public Button toggleButton = new Button("play/pause");
     private final GridPane grid = new GridPane();
@@ -37,10 +34,10 @@ public class MapBox extends GridPane {
         this.grid.setGridLinesVisible(true);
 
         for (int i = 0; i < map.getWidth(); i++) {
-            this.grid.getColumnConstraints().add(new ColumnConstraints(45));
+            this.grid.getColumnConstraints().add(new ColumnConstraints(35));
         }
         for (int i = 0; i < map.getHeight(); i++) {
-            this.grid.getRowConstraints().add(new RowConstraints(45));
+            this.grid.getRowConstraints().add(new RowConstraints(35));
         }
 
         for (int i = 0; i < map.getWidth(); i++) {
@@ -90,12 +87,9 @@ public class MapBox extends GridPane {
         newButtons.setSpacing(15);
         this.buttons.getChildren().add(newButtons);
         this.buttons.setAlignment(Pos.CENTER);
-        HBox hbox = new HBox(this.chart, this.buttons);
-        hbox.setSpacing(15);
-        hbox.setAlignment(Pos.CENTER);
-        VBox mapBox = new VBox(hbox);
+        HBox mapBox = new HBox(this.chart, this.buttons);
+        mapBox.setSpacing(10);
         mapBox.setAlignment(Pos.CENTER);
-        mapBox.setSpacing(20);
         this.toggleButton.setOnAction(e -> {
             this.engine.toggleSimulation();
         });

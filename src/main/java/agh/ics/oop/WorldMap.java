@@ -24,7 +24,7 @@ public class WorldMap implements IWorldMap {
     private final ArrayList<Animal> animalOffsprings = new ArrayList<>();
     private final HashMap<Vector2d, Plant> plantLists = new HashMap<>();
     private final HashMap<Vector2d, ArrayList<Animal>> animalLists = new HashMap<>();
-    private final HashMap<String, Integer> genotypes = new HashMap<String, Integer>();
+    private final HashMap<String, Integer> genotypesCounts = new HashMap<String, Integer>();
     private final Set<Vector2d> animalPositions = animalLists.keySet();
     private final Set<Vector2d> plantPositions = plantLists.keySet();
 
@@ -59,13 +59,13 @@ public class WorldMap implements IWorldMap {
 
     @Override
     public void addToGenotypes(Animal animal) {
-        if (!this.genotypes.containsKey(animal.getGenes().toString())) {
-            this.genotypes.put(animal.getGenes().toString(), 1);
+        if (!this.genotypesCounts.containsKey(animal.getGenes().toString())) {
+            this.genotypesCounts.put(animal.getGenes().toString(), 1);
         } else {
-            int countGen = this.genotypes.get(animal.getGenes().toString());
+            int countGen = this.genotypesCounts.get(animal.getGenes().toString());
             countGen += 1;
-            this.genotypes.remove(animal.getGenes().toString());
-            this.genotypes.put(animal.getGenes().toString(), countGen);
+            this.genotypesCounts.remove(animal.getGenes().toString());
+            this.genotypesCounts.put(animal.getGenes().toString(), countGen);
         }
     }
 
@@ -127,10 +127,10 @@ public class WorldMap implements IWorldMap {
                 if (animal.getEnergy() <= 0) {
                     animal.setDeathDate(engine.getDayNumber());
                     this.deadAnimals.add(animal);
-                    int countGen = this.genotypes.get(animal.getGenes().toString()) - 1;
-                    this.genotypes.remove(animal.getGenes().toString());
+                    int countGen = this.genotypesCounts.get(animal.getGenes().toString()) - 1;
+                    this.genotypesCounts.remove(animal.getGenes().toString());
                     if (countGen > 0) {
-                        this.genotypes.put(animal.getGenes().toString(), countGen);
+                        this.genotypesCounts.put(animal.getGenes().toString(), countGen);
                     }
 
                     this.animalLists.get(animal.getPosition()).remove(animal);
@@ -283,9 +283,9 @@ public class WorldMap implements IWorldMap {
     public String getDominantGenotype() {
         String dominantGenotype = "";
         int maxCount = 0;
-        for (String genotype : this.genotypes.keySet()) {
-            if (this.genotypes.get(genotype) >= maxCount) {
-                maxCount = this.genotypes.get(genotype);
+        for (String genotype : this.genotypesCounts.keySet()) {
+            if (this.genotypesCounts.get(genotype) >= maxCount) {
+                maxCount = this.genotypesCounts.get(genotype);
                 dominantGenotype = genotype;
             }
         }
@@ -334,8 +334,8 @@ public class WorldMap implements IWorldMap {
         return this.startEnergy;
     }
 
-    public HashMap<String, Integer> getGenotypes() {
-        return this.genotypes;
+    public HashMap<String, Integer> getGenotypesCounts() {
+        return this.genotypesCounts;
     }
 
     public MapDirection[] getDirections() {

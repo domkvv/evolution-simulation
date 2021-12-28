@@ -19,7 +19,7 @@ public class StartWindowBox extends VBox {
     public SingleQueryBox moveEnergyBox = new SingleQueryBox("move energy", "5");
     public SingleQueryBox plantEnergyBox = new SingleQueryBox("plant energy", "50");
     public SingleQueryBox jungleRatioBox = new SingleQueryBox("jungle ratio", "0.25");
-    public SingleQueryBox moveDelay = new SingleQueryBox("move delay", "300");
+    public SingleQueryBox moveDelay = new SingleQueryBox("move delay [ms]", "300");
     public CheckBox strategyRolledMap = new CheckBox("select magic strategy for rolled map");
     public CheckBox strategyLimitedMap = new CheckBox("select magic strategy for limited map");
     public Button goButton = new Button("go");

@@ -23,6 +23,7 @@ public class SingleChartBox extends VBox {
         this.yDataToAdd = yDataToAdd;
         this.series.getData().add(new XYChart.Data(engine.getDayNumber(), yDataToAdd));
         this.chart.getData().add(this.series);
+        this.chart.setMaxSize(300, 230);
         this.getChildren().add(this.chart);
     }
 
@@ -30,6 +31,8 @@ public class SingleChartBox extends VBox {
         XYChart.Data newData = new XYChart.Data(this.engine.getDayNumber(), yDataToAdd);
         this.yDataToAdd = yDataToAdd;
         this.series.getData().add(newData);
+        this.chart.setMaxSize(300, 230);
+
     }
 
 
